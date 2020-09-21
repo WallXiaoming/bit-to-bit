@@ -18,15 +18,16 @@ radio.onReceivedNumber(function (receivedNumber) {
         wuKong.setServoAngel(wuKong.ServoList.S4, 90)
     }
 })
+let 指南针角度 = 0
 radio.setGroup(0)
 basic.forever(function () {
-    if (input.buttonIsPressed(Button.A)) {
+    指南针角度 = input.rotation(Rotation.Pitch)
+    if (指南针角度 < 45) {
         radio.sendNumber(1)
-    }
-    if (input.buttonIsPressed(Button.B)) {
+    } else if (指南针角度 < 135) {
         radio.sendNumber(2)
-    }
-    if (input.buttonIsPressed(Button.AB)) {
+    } else {
         radio.sendNumber(3)
     }
+    basic.showNumber(指南针角度)
 })
